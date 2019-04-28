@@ -37,6 +37,7 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
   
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -44,7 +45,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="back.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -337,7 +338,7 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Produit</span>
+            <i class="fa fa-edit"></i> <span>Produit</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -347,14 +348,15 @@
             <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier produit</a></li>
             <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
-            <li><a href="chercherr.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="stat1.php"><i class="fa fa-circle-o"></i> Statistique Produit</a></li>
           </ul>
         </li>
        
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Stock</span>
+            <i class="fa fa-edit"></i> <span>Stock</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -364,6 +366,8 @@
             <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
+                         <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+                         <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
           </ul>
         </li>
     </section>
@@ -386,26 +390,44 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-lg-3 col-xs-6">
-       <?php
+        <div class=" col-xs-20">
+<?php
   include "config.php";
   include "produit.php";
   $c=new config();
   $conn=$c->getConnection();
-  $e=new produit(2486,"IBM","noir","ordinateur","2019-05-20");
+  $e=new produit(2486,"aa","IBM","noir","ordinateur",55,"2019-05-20");
   $resultat=$e->afficher($conn);
   
 ?>
-
+<center>
 <form name="Form2" method="POST" onsubmit="chercher.php">
+</centre>
+
   <fieldset>
-    <legend><h2>Chercher Produits</h2></legend>
-    Rechercher <input type="number" name="recherch"><input type="submit" name="chercher" value="chercher"></br>
-    <table border="2">
-      <tr>
-        <td> Code Produit </td> <td> Marque </td> <td> Couleur </td>  <td> Type </td> <td>Date</td>
-        <td>supprimer Produit</td>  <td>Modifier Produit</td>
-      </tr>
+
+    
+    <h4>Rechercher 
+    <input type="number" name="recherch" >
+    <button type="submit" name="chercher" value="chercher" class="btn btn-danger">chercher</button>
+    </h4>
+    
+    <div align="center" >
+    <table   id="example1" class="table table-striped">
+  <thead>
+    <tr>
+      <th >Code Produit</th>
+      <th> Image </th>
+      <th >Marque</th>
+      <th >Couleur</th>
+      <th >Type</th>
+      <th> Prix </th>
+      <th >Date</th>
+      <th> Supprimer Produit</th>
+      <th> Modifier Produit</th>
+    </tr>
+  </thead>
+  <tbody>
       <?php 
       
 if((!isset($_POST['chercher'])) || ((isset($_POST['chercher']) && (!isset($_POST['recherch']))
@@ -415,12 +437,16 @@ if((!isset($_POST['chercher'])) || ((isset($_POST['chercher']) && (!isset($_POST
       ?>
       <tr>
         <td><?php echo $res['codeProd'];?></td>
+        <td><a><img class="" src="<?php echo $res['image'];?>" style="width: 100px; height:100px;"></a></td>
         <td><?php echo $res['marque'];?></td>
         <td><?php echo $res['couleur'];?></td>
         <td><?php echo $res['typee'];?></td>
+        <td><?php echo $res['prix'];?></td>
         <td><?php echo $res['dateC'];?></td>
-        <td><a href="sprod.html">Supprimer</a></td>
-        <td><a href="mprod.html">Modifier</a></td>
+       <td><a href="sprod.html">Supprimer</a></td>
+       <td><a href="mprod.html">Modifier</a></td>
+
+      
       </tr>
       <?php
       }
@@ -433,12 +459,15 @@ if((!isset($_POST['chercher'])) || ((isset($_POST['chercher']) && (!isset($_POST
       ?>
       <tr>
         <td><?php echo $res['codeProd'];?></td>
+        <td><a><img class="" src="<?php echo $res['image'];?>" style="width: 100px; height:100px;"></a></td>
         <td><?php echo $res['marque'];?></td>
         <td><?php echo $res['couleur'];?></td>
         <td><?php echo $res['typee'];?></td>
+        <td><?php echo $res['prix'];?></td>
         <td><?php echo $res['dateC'];?></td>
-        <td><a href="sprod.html">Supprimer</a></td>
-        <td><a href="mprod.html">Modifier</a></td>
+       <td><a href="sprod.html">Supprimer</a></td>
+       <td><a href="mprod.html">Modifier</a></td>
+        
       </tr>
       <?php
     }
@@ -446,11 +475,10 @@ if((!isset($_POST['chercher'])) || ((isset($_POST['chercher']) && (!isset($_POST
   }
     ?>
 
-      
+      </tbody>
 </table>
-    
+    </div>
 
-    
   </fieldset>
 </form>
      <div class="small-box bg-green">

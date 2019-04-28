@@ -1,9 +1,50 @@
+<?php
+include_once "../core/stockC.php";
+include_once "../entites/stock.php";
+try
+{
+ $bdd = new PDO("mysql:host=localhost;dbname=gestionstock", "root", "");
+ $bdd ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch(Exception $e)
+{
+  die("Une érreur a été trouvé : " . $e->getMessage());
+}
+$bdd->query("SET NAMES UTF8");
+
+if (isset($_GET['s']) AND $_GET["s"] == "Rechercher")
+{
+  
+ $_GET["terme"] = htmlspecialchars($_GET["terme"]); //pour sécuriser le formulaire contre les intrusions html
+ $terme = $_GET['terme'];
+ 
+
+ if (isset($terme))
+ {
+
+  $terme = strtolower($terme);
+  $select_terme = $bdd->prepare("SELECT quantite, unite,description,codeprod FROM stock WHERE description LIKE ? OR quantite LIKE ?");
+  $select_terme->execute(array("%".$terme."%", "%".$terme."%"));
+
+ }
+ else
+ {
+  $message = "Vous devez entrer votre requete dans la barre de recherche";
+ }
+}
+else
+{
+  $select_terme = $bdd->prepare("SELECT * FROM stock ");
+  $select_terme->execute(array("%","%","%","%"));
+ 
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Ajouter Stock</title>
+  <title>Afficher Stock</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -37,41 +78,6 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <script type="text/javascript">
-    function verif()
-    {
-      var i=0;
-      if(f1.quantite.value=="")
-      {
-        alert("saisir votre quantite");
-        i--;
-        return false;
-      }
-      if(f1.unite.value=="")
-      {
-        alert("saisir votre unite");
-        i--;
-        return false;
-      }
-      if(f1.description.value=="")
-      {
-        alert("saisir votre description");
-        i--;
-        return false;
-      }
-      if(f1.codeprod.value=="")
-      {
-        alert("saisir votre code de produit");
-        i--;
-        return false;
-      }
-      if(i==4)
-      {
-        return true;
-      }
-    }
-
-    </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -399,8 +405,8 @@
             <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
-                        <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
-                                   <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
+            <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+            <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
 
           </ul>
         </li>
@@ -416,7 +422,7 @@
         
         <small> </small>
       </h1>
-     
+      
     </section>
 
     <!-- Main content -->
@@ -424,34 +430,48 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-xs-20">
- <fieldset >
-      <form name="f1"  method="POST" action="ajoutstock.php" onSubmit="return verif()">
-        <center><legend><h2>Ajouter Stock</h2></legend></center>
-        <table id="example1" class="table table-striped">
-          <tr>
-            <th> Quantite </th>
-            <th><input type="number" name="quantite" value=""/></th>
-          </tr>
-          <tr>
-            <th> Unite </th>
-            <th><input type="number" name="unite" value=""/></th>
-          </tr>
-          <tr>
-            <th> Description </th>
-            <th><input type="text" name="description" value=""/></th>
-          </tr>
-          <tr>
-          <th> Code Produit </th>
-          <th><input type="number" name="codeprod" value=""/></th>
-        </tr>
-        </table>
-        <br>
-        <center>
-        <td><button type="submit" name="Ajouter" value="Ajouter" class="btn btn-danger">Ajouter</button></td>
-      </center>
-      </form>
-    </fieldset>         
+<center>
+           <div class="search-content">
+       <form action = "verver1.php" method = "GET">
+        <h4>Rechercher 
+    <input type="search" name="terme" >
+    <button type="submit" name="s" value="Rechercher" class="btn btn-danger">Afficher</button>
+    </h4>
+            </center>                               
+        </form>
+        <table   id="example1" class="table table-striped">
+  <thead>
+    <tr>
+       <th>Quantite</th>
+        <th>Unite</th>
+        <th>Description</th>
+        <th>Code Produit</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php
+  
+  while($terme_trouve = $select_terme->fetch())
+  {
+      ?>  
+     <tr>
+
+  
+  <td><?php echo $terme_trouve['quantite']; ?></td>
+  <td><?php echo $terme_trouve['unite']; ?></td>
+    <td><?php echo $terme_trouve['description']; ?></td>
+  <td><?php echo $terme_trouve['codeprod']; ?></td>
+</tr>
+                        
+ <?php
+  
+  }
+  $select_terme->closeCursor();
+   ?>
+   </tr>
+    </tbody>
+    </table>
+
      <div class="small-box bg-green">
    
     

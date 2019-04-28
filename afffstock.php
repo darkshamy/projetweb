@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,7 +44,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="back.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -336,7 +337,7 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Produit</span>
+            <i class="fa fa-edit"></i> <span>Produit</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -346,14 +347,15 @@
             <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier Produit</a></li>
             <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
-            <li><a href="chercherr.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="stat1.php"><i class="fa fa-circle-o"></i> Statistique Produit</a></li>
           </ul>
         </li>
        
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Stock</span>
+            <i class="fa fa-edit"></i> <span>Stock</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -363,6 +365,9 @@
             <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
+            <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+                       <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
+
           </ul>
         </li>
     </section>
@@ -385,27 +390,26 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-lg-3 col-xs-6">
-           <legend><h2>Afficher Stock</h2></legend>
+<div class=" col-xs-20">
+           <center><legend><h2>Afficher Stock</h2></legend></center>
   <?php
-include"config.php";
-include"stock.php";
-$c=new config();
-$conn=$c->getConnection();
-$e=new stock(69,255);
-$e1=new stock(252,55);
-$resultat=$e->afficher($conn);
-$e1->afficher($conn);
+include_once "../core/stockC.php";
+include_once "../entites/stock.php";
+$resultat=afficher();
 
 ?>
 
-
-    <table border="1">
-      <tr>
-        <td>quantite</td>
-        <td>codeprod</td>
-      </tr>
-      <tr>
+<form name="f1"  method="POST" action="b.php" onSubmit="return verif()" >
+<table   id="example1" class="table table-striped color red">
+  <thead>
+    <tr>
+       <th>Quantite</th>
+        <th>Unite</th>
+        <th>Description</th>
+        <th>Code Produit</th>
+    </tr>
+  </thead>
+  <tbody>
         <?php
 foreach ($resultat as $res) {
 
@@ -415,13 +419,21 @@ foreach ($resultat as $res) {
 
   
   <td><?php echo $res['quantite']; ?></td>
+  <td><?php echo $res['unite']; ?></td>
+    <td><?php echo $res['description']; ?></td>
   <td><?php echo $res['codeprod']; ?></td>
 </tr>
 <?php
 }
  ?>
       </tr>
+    </tbody>
     </table>
+    <br>
+        <center>
+        <td><button type="submit" name="Imprimer" value="Imprimer" class="btn btn-danger">Imprimer</button></td>
+      </center>
+    </form>
     </fieldset>
      <div class="small-box bg-green">
    

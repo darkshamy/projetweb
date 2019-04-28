@@ -10,8 +10,8 @@ include"config.php";
 include"stock.php";
 $c=new config();
 $conn=$c->getConnection();
-$e=new stock(69,255);
-$e1=new stock(252,55);
+$e=new stock(69,255,"aa",22);
+$e1=new stock(252,55,"zz",14);
 $resultat=$e->afficher($conn);
 $e1->afficher($conn);
 
@@ -21,6 +21,8 @@ $e1->afficher($conn);
     <table border="1">
       <tr>
         <td>quantite</td>
+        <td>unite</td>
+        <td>description</td>
         <td>codeprod</td>
       </tr>
       <tr>
@@ -33,6 +35,8 @@ foreach ($resultat as $res) {
 
   
   <td><?php echo $res['quantite']; ?></td>
+  <td><?php echo $res['unite']; ?></td>
+    <td><?php echo $res['description']; ?></td>
   <td><?php echo $res['codeprod']; ?></td>
 </tr>
 <?php

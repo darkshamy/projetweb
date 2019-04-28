@@ -1,15 +1,12 @@
 <?php
-include "config.php";
-include "stock.php";
-$c=new config();
-$conn=$c->getConnection();
-$mouhib=new stock(2486,22);
+include_once "../core/stockC.php";
+include_once "../entites/stock.php";
 
 if (isset($_POST["Supprimer"]))
 {
 	$id=(int)$_POST['quantite'];
-	$mouhib->supprimer($id,$conn);
+	supprimer($id);
 }
 
-header('LOCATION:mouhib.html');
+header('LOCATION:sstock.html');
 ?>

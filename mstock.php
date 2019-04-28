@@ -1,15 +1,12 @@
 <?php
-include "config.php";
-include "stock.php";
-$c=new config();
-$conn=$c->getConnection();
-
+include_once "../core/stockC.php";
+include_once "../entites/stock.php";
 
 if(isset($_POST['Modifier']))
 {
- $id=new stock ($_POST['quantite'],$_POST['codeprod']);
- $id->modifier($id,$conn);
+ $id=new stock ($_POST['quantite'],$_POST['unite'],$_POST['description'],$_POST['codeprod']);
+ modifier($id);
 }
 
-header('LOCATION:mouhib.html');
+header('LOCATION:mstock.html');
 ?>

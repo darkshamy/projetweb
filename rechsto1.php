@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Ajouter Stock</title>
+  <title>Chercher produit</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -37,41 +37,8 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <script type="text/javascript">
-    function verif()
-    {
-      var i=0;
-      if(f1.quantite.value=="")
-      {
-        alert("saisir votre quantite");
-        i--;
-        return false;
-      }
-      if(f1.unite.value=="")
-      {
-        alert("saisir votre unite");
-        i--;
-        return false;
-      }
-      if(f1.description.value=="")
-      {
-        alert("saisir votre description");
-        i--;
-        return false;
-      }
-      if(f1.codeprod.value=="")
-      {
-        alert("saisir votre code de produit");
-        i--;
-        return false;
-      }
-      if(i==4)
-      {
-        return true;
-      }
-    }
 
-    </script>
+  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -378,10 +345,10 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="aprod.html"><i class="fa fa-circle-o"></i> Ajout Produit</a></li>
-            <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier Produit</a></li>
+            <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier produit</a></li>
             <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
-            <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="chercherr.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
             <li><a href="stat1.php"><i class="fa fa-circle-o"></i> Statistique Produit</a></li>
           </ul>
         </li>
@@ -399,9 +366,8 @@
             <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
-                        <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
-                                   <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
-
+            <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+            <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
           </ul>
         </li>
     </section>
@@ -416,7 +382,7 @@
         
         <small> </small>
       </h1>
-     
+      
     </section>
 
     <!-- Main content -->
@@ -424,34 +390,83 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-xs-20">
- <fieldset >
-      <form name="f1"  method="POST" action="ajoutstock.php" onSubmit="return verif()">
-        <center><legend><h2>Ajouter Stock</h2></legend></center>
-        <table id="example1" class="table table-striped">
-          <tr>
-            <th> Quantite </th>
-            <th><input type="number" name="quantite" value=""/></th>
-          </tr>
-          <tr>
-            <th> Unite </th>
-            <th><input type="number" name="unite" value=""/></th>
-          </tr>
-          <tr>
-            <th> Description </th>
-            <th><input type="text" name="description" value=""/></th>
-          </tr>
-          <tr>
-          <th> Code Produit </th>
-          <th><input type="number" name="codeprod" value=""/></th>
-        </tr>
-        </table>
-        <br>
-        <center>
-        <td><button type="submit" name="Ajouter" value="Ajouter" class="btn btn-danger">Ajouter</button></td>
-      </center>
-      </form>
-    </fieldset>         
+        <div class=" col-xs-20">
+<?php
+  include "config.php";
+  include "stock.php";
+  $c=new config();
+  $conn=$c->getConnection();
+  $e=new stock(2486,25,"aa",22);
+  $resultat=$e->afficher($conn);
+  
+?>
+<center>
+<form name="Form2" method="POST" onsubmit="rechsto.php">
+</center>
+  <fieldset>
+<center>
+    <h4>Rechercher 
+    <input type="number" name="recherch" >
+    <button type="submit" name="chercher" value="chercher" class="btn btn-danger">chercher</button></h4>
+    </center>
+    <div align="center" >
+    <table   id="example1" class="table table-striped">
+  <thead>
+    <tr>
+      <th >Quantite</th>
+      <th >Unite</th>
+      <th >Description</th>
+      <th >Code Produit</th>
+      <th> Supprimer Stock</th>
+      <th> Modifier Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php 
+      
+if((!isset($_POST['chercher'])) || ((isset($_POST['chercher']) && (!isset($_POST['recherch']))
+   ))) {
+
+      foreach ($resultat as $res){
+      ?>
+      <tr>
+        <td><?php echo $res['quantite'];?></td>
+        <td><?php echo $res['unite'];?></td>
+        <td><?php echo $res['description'];?></td>
+        <td><?php echo $res['codeprod'];?></td>
+        <td><a href="sstock.html">Supprimer</a></td>
+        <td><a href="mstock.html">Modifier</a></td>
+      </tr>
+      <?php
+      }
+    }
+    else
+    {
+      if(($_POST['recherch'])!=null){
+      $mouhib=$e->rechercher($_POST['recherch'],$conn);
+      foreach ($mouhib as $res){
+      ?>
+      <tr>
+        <td><?php echo $res['quantite'];?></td>
+        <td><?php echo $res['unite'];?></td>
+        <td><?php echo $res['description'];?></td>
+        <td><?php echo $res['codeprod'];?></td>
+        <td><a href="sstock.html">Supprimer</a></td>
+        <td><a href="mstock.html">Modifier</a></td>
+      </tr>
+      <?php
+    }
+    }
+  }
+    ?>
+
+      
+</table>
+    
+
+    
+  </fieldset>
+</form>
      <div class="small-box bg-green">
    
     

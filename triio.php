@@ -43,7 +43,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="back.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -336,7 +336,7 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Produit</span>
+            <i class="fa fa-edit"></i> <span>Produit</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -346,14 +346,15 @@
             <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier Produit</a></li>
             <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
-            <li><a href="chercherr.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="stat1.php"><i class="fa fa-circle-o"></i> Statistique Produit</a></li>
           </ul>
         </li>
        
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Stock</span>
+            <i class="fa fa-edit"></i> <span>Stock</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -364,6 +365,7 @@
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
                  <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+                 <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
           </ul>
         </li>
     </section>
@@ -386,15 +388,15 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-lg-3 col-xs-6">
-           <legend><h2>tri Stock</h2></legend>
+        <div class="col-xs-20">
+           <center><legend><h2>Tri Stock</h2></legend></center>
  <?PHP
-include "config.php";
-include "stock.php";
+include_once "../core/stockC.php";
+include_once "../entites/stock.php";
 
-$stock1=new stock(22,255);
- $listeclient1=$stock1->afficherASC();
- $listeclient2=$stock1->afficherDESC();
+
+ $listeclient1=afficherASC();
+ $listeclient2=afficherDESC();
 
 ?>
 
@@ -403,9 +405,11 @@ $stock1=new stock(22,255);
        
        
         
-   <h2> <input type="submit" name="asc" value="ascendant">
-    <input type="submit" name="desc" value="descendant"></h2>
-
+ 
+<center>
+    <button type="submit" name="asc" value="ascendant" class="btn btn-danger">Ascendant</button>
+    <button type="submit" name="desc" value="descendant" class="btn btn-danger">Descendant</button>
+</center>
 
 
 
@@ -415,28 +419,24 @@ $stock1=new stock(22,255);
 
 if (isset($_POST['asc'])) {
     ?>
-    <table border="4" class="hamza">
-<tr>
-<td><h2>quantite</h2></td>
-<td><h2>code produit</h2></td>
-
-
-
-</tr>
-
-
+   <table   id="example1" class="table table-hover">
+  <thead>
+    <tr>
+      <th >Quantite</th>
+      <th >Unite</th>
+      <th >Description</th>
+      <th >Code Produit</th>
+    </tr>
+  </thead>
 <?php
 foreach($listeclient1 as $row)
 {
     ?>
     <tr>
-    <td><?PHP echo $row['quantite']; ?></td>
-    <td><?PHP echo $row['codeprod']; ?></td>
- 
-
-    
-    
-    
+    <td><?php echo $row['quantite']; ?></td>
+    <td><?php echo $row['unite']; ?></td>
+    <td><?php echo $row['description']; ?></td>
+    <td><?php echo $row['codeprod']; ?></td>
     </tr>
     <?php
 }
@@ -450,31 +450,29 @@ foreach($listeclient1 as $row)
 
 if (isset($_POST['desc'])) {
     ?>
-    <table border="4" class="hamza">
-<tr>
-<td><h2>quantite</h2></td>
-<td><h2>code produit</h2></td>
-
-
-
-</tr>
-
+   <table   id="example1" class="table table-striped">
+  <thead>
+    <tr>
+      <th >Quantite</th>
+      <th >Unite</th>
+      <th >Description</th>
+      <th >Code Produit</th>
+    </tr>
+  </thead>
 
 <?php
 foreach($listeclient2 as $row){
     ?>
        <tr>
-    <td><?PHP echo $row['quantite']; ?></td>
-    <td><?PHP echo $row['codeprod']; ?></td>
-
-
-    
-    
-    
+    <td><?php echo $row['quantite']; ?></td>
+    <td><?php echo $row['unite']; ?></td>
+    <td><?php echo $row['description']; ?></td>
+    <td><?php echo $row['codeprod']; ?></td>
     </tr>
     <?php
 }
 ?>
+</thead>
     </table>
     </form>
     

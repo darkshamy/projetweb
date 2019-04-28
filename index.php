@@ -1,7 +1,7 @@
 <?php
    ob_start();
    session_start();
-   include "config.php"
+   include_once "../core/config.php";
 ?>
 
 <?

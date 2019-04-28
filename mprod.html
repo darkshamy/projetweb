@@ -47,6 +47,12 @@
         i--;
         return false;
       }
+      if(f1.image.value=="")
+      {
+        alert("saisir votre image");
+        i--;
+        return false;
+      }
       if(f1.marque.value=="")
       {
         alert("saisir votre marque");
@@ -65,13 +71,19 @@
         i--;
         return false;
       }
-      if(f1.date.value=="")
+      if(f1.prix.value=="")
+      {
+        alert("saisir votre prix");
+        i--;
+        return false;
+      }
+      if(f1.dateC.value=="")
       {
         alert("saisir votre date de Creation");
         i--;
         return false;
       }
-      if(i==5)
+      if(i==6)
       {
         return true;
       }
@@ -84,7 +96,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="back.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -377,7 +389,7 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Produit</span>
+            <i class="fa fa-edit"></i> <span>Produit</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -387,14 +399,15 @@
             <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier produit</a></li>
             <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
-            <li><a href="chercherr.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="stat1.php"><i class="fa fa-circle-o"></i> Statistique Produit</a></li>
           </ul>
         </li>
        
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Stock</span>
+            <i class="fa fa-edit"></i> <span>Stock</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -404,6 +417,9 @@
             <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
+                        <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+                        <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
+
           </ul>
         </li>
     </section>
@@ -426,36 +442,45 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-xs-20">
 <fieldset >
       <form name="f1"  method="POST" action="mprod.php" onSubmit="return verif()" >
- <legend><h2> Modifier Produit </h2></legend>
-         <table>
+ <center><legend><h2> Modifier Produit </h2></legend></center>
+         <table id="example1" class="table table-striped">
           <tr>
-            <td> Code Produit </td>
-            <td><input type="number" name="codeProd" value=""/></td>
+            <th> Code Produit </th>
+            <th><input type="number" name="codeProd" value=""/></th>
           </tr>
           <tr>
-          <td> Marque </td>
-          <td><input type="text" name="marque" value=""/></td>
+            <th> Image </th>
+            <th><input type="file" name="image" value=""/></th>
+          </tr>
+          <tr>
+          <th> Marque </th>
+          <th><input type="text" name="marque" value=""/></th>
         </tr>
         <tr>
-            <td> Couleur </td>
-            <td><input type="text" name="couleur" value=""/></td>
+            <th> Couleur </th>
+            <th><input type="text" name="couleur" value=""/></th>
           </tr>
           <tr>
-            <td> Type </td>
-            <td><input type="text" name="typee" value=""/></td>
+            <th> Type </th>
+            <th><input type="text" name="typee" value=""/></th>
           </tr>
           <tr>
-            <td> Date Creation  </td>
-            <td><input type="date" name="dateC" value=""/></td>
+            <th> Prix </th>
+            <th><input type="number" name="prix" value=""/></th>
           </tr>
-        <tr>
-          <td></td>
-          <td><input type="submit"  name="Modifier" value="Modifier"/></td>
-        </tr>
+
+          <tr>
+            <th> Date Creation  </th>
+            <th><input type="date" name="dateC" value=""/></th>
+          </tr>
+       
         </table>
+        <center>
+        <td><button type="submit" name="Modifier" value="Modifier" class="btn btn-danger">Modifier</button></td>
+      </center>
       </form>
     </fieldset>     <div class="small-box bg-green">
    

@@ -1,9 +1,19 @@
+
+<?php
+  //require 'connect.php';
+  $objectPdo = new PDO('mysql:host=localhost;dbname=gestionstock', 'root', '');
+  $pdoStat = $objectPdo->prepare('SELECT * FROM produit ORDER BY codeProd ASC ');
+  $executeIsOK = $pdoStat->execute();
+  $produit= $pdoStat->fetchAll();
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Ajouter Stock</title>
+  <title>Pro Systeme</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -37,43 +47,9 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <script type="text/javascript">
-    function verif()
-    {
-      var i=0;
-      if(f1.quantite.value=="")
-      {
-        alert("saisir votre quantite");
-        i--;
-        return false;
-      }
-      if(f1.unite.value=="")
-      {
-        alert("saisir votre unite");
-        i--;
-        return false;
-      }
-      if(f1.description.value=="")
-      {
-        alert("saisir votre description");
-        i--;
-        return false;
-      }
-      if(f1.codeprod.value=="")
-      {
-        alert("saisir votre code de produit");
-        i--;
-        return false;
-      }
-      if(i==4)
-      {
-        return true;
-      }
-    }
-
-    </script>
+  
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" onload="window.print();">
 <div class="wrapper">
 
   <header class="main-header">
@@ -378,7 +354,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="aprod.html"><i class="fa fa-circle-o"></i> Ajout Produit</a></li>
-            <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier Produit</a></li>
+            <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier produit</a></li>
             <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
             <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
@@ -399,8 +375,8 @@
             <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
-                        <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
-                                   <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
+            <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+             <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
 
           </ul>
         </li>
@@ -416,7 +392,7 @@
         
         <small> </small>
       </h1>
-     
+      
     </section>
 
     <!-- Main content -->
@@ -424,34 +400,56 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-xs-20">
- <fieldset >
-      <form name="f1"  method="POST" action="ajoutstock.php" onSubmit="return verif()">
-        <center><legend><h2>Ajouter Stock</h2></legend></center>
-        <table id="example1" class="table table-striped">
-          <tr>
-            <th> Quantite </th>
-            <th><input type="number" name="quantite" value=""/></th>
-          </tr>
-          <tr>
-            <th> Unite </th>
-            <th><input type="number" name="unite" value=""/></th>
-          </tr>
-          <tr>
-            <th> Description </th>
-            <th><input type="text" name="description" value=""/></th>
-          </tr>
-          <tr>
-          <th> Code Produit </th>
-          <th><input type="number" name="codeprod" value=""/></th>
-        </tr>
-        </table>
+        <div class=" col-xs-20">
+
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-4 invoice-col">
         <br>
+        
         <center>
-        <td><button type="submit" name="Ajouter" value="Ajouter" class="btn btn-danger">Ajouter</button></td>
-      </center>
-      </form>
-    </fieldset>         
+          <h4><strong>Liste des Produits</strong></h4>
+         </center>
+        <br>
+      </div>
+      <!-- /.col -->
+      
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <!-- Table row -->
+        <table  id="example1" class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Code Produit</th>
+      <th scope="col">Marque</th>
+      <th scope="col">Couleur</th>
+      <th scope="col">Type</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+          <?php foreach ($produit as $produit): ?> 
+              <tr>
+                <td><?PHP echo $produit['codeProd']; ?></td>
+                <td><?PHP echo $produit['marque']; ?></td>
+                <td><?PHP echo $produit['couleur']; ?></td>
+                <td><?PHP echo $produit['typee']; ?></td>
+                <td><?PHP echo $produit['prix']; ?></td>
+                <td><?PHP echo $produit['dateC']; ?></td>
+
+                <td>
+      
+                </td>
+                
+              </tr>
+                  <?php endforeach; 
+                  ?>
+    </tbody>
+</table>
+
      <div class="small-box bg-green">
    
     

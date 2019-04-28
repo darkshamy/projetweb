@@ -1,14 +1,11 @@
 <?php
-include "config.php";
-include "produit.php";
-$c=new config();
-$conn=$c->getConnection();
-$mouhib=new produit(2486,"IBM","noir","ordinateur","2019-05-20");
+include_once "../core/produitC.php";
+include_once "../entites/produit.php";
 
 if (isset($_POST["Supprimer"]))
 {
 	$id=(int)$_POST['codeProd'];
-	$mouhib->supprimer($id,$conn);
+	supprimer($id);
 }
 
 header('LOCATION:sprod.html');

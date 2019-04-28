@@ -10,8 +10,8 @@ include"config.php";
 include"produit.php";
 $c=new config();
 $conn=$c->getConnection();
-$e=new produit(69,"dell","noir","laptop","1998-05-03");
-$e1=new produit(252,"hp","rouge","tel","2015-09-01");
+$e=new produit(69,"aa","dell","noir","laptop","1998-05-03");
+$e1=new produit(252,"aa","hp","rouge","tel","2015-09-01");
 $resultat=$e->afficher($conn);
 $e1->afficher($conn);
 
@@ -21,6 +21,7 @@ $e1->afficher($conn);
     <table border="1">
       <tr>
         <td>codeProd</td>
+        <td>Image</td>
         <td>marque</td>
         <td>couleur</td>
         <td>type</td>
@@ -33,6 +34,7 @@ foreach ($resultat as $res) {
   ?>
 <tr>
   <td><?php echo $res['codeProd']; ?></td>
+  <td><a><img class="" src="<?php echo $res['image'];?>" style="width: 100px; height:100px;"></a></td>
   <td><?php echo $res['marque']; ?></td>
   <td><?php echo $res['couleur']; ?></td>
   <td><?php echo $res['typee']; ?></td>

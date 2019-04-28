@@ -39,12 +39,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" >
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="back.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -337,7 +337,7 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Produit</span>
+            <i class="fa fa-edit"></i> <span>Produit</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -347,14 +347,15 @@
             <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier produit</a></li>
             <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
-            <li><a href="chercherr.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="stat1.php"><i class="fa fa-circle-o"></i> Statistique Produit</a></li>
           </ul>
         </li>
        
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Stock</span>
+            <i class="fa fa-edit"></i> <span>Stock</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -364,6 +365,9 @@
             <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
+                        <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+                                   <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
+
           </ul>
         </li>
     </section>
@@ -386,48 +390,57 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-lg-3 col-xs-6">
-         <legend><h2> Afficher Produit </h2></legend>
+        <div class=" col-xs-20">
+<center><legend><h2> Afficher Produit </h2></legend></center>
        <?php
-include"config.php";
-include"produit.php";
-$c=new config();
-$conn=$c->getConnection();
-$e=new produit(69,"dell","noir","laptop","1998-05-03");
-$e1=new produit(252,"hp","rouge","tel","2015-09-01");
-$resultat=$e->afficher($conn);
-$e1->afficher($conn);
+include_once "../core/produitC.php";
+include_once "../entites/produit.php";
+$resultat=afficher();
+
 
 ?>
 
+<form name="f1"  method="POST" action="a.php" onSubmit="return verif()" >
 
-    <table border="1">
-      <tr>
-        <td> codeProd </td>
-        <td> marque </td>
-        <td> couleur </td>
-        <td> type </td>
-        <td> date </td>
-      </tr>
-      <tr>
-        <?php
+<table   id="example1"  class="table table-hover">
+  <thead>
+    <tr>
+      <th >Code Produit</th>
+      <th> Image </th>
+      <th >Marque</th>
+      <th >Couleur</th>
+      <th >Type</th>
+      <th> Prix </th>
+      <th >Date</th>
+    </tr>
+  </thead>
+  <tbody>
+          <?php
 foreach ($resultat as $res) {
 
   ?>
 <tr>
   <td><?php echo $res['codeProd']; ?></td>
+  <td><a><img class="" src="<?php echo $res['image'];?>" style="width: 100px; height:100px;"></a></td>
   <td><?php echo $res['marque']; ?></td>
   <td><?php echo $res['couleur']; ?></td>
   <td><?php echo $res['typee']; ?></td>
+  <td><?php echo $res['prix']; ?></td>
   <td><?php echo $res['dateC']; ?></td>
 
 
 </tr>
 <?php
 }
- ?>
-      </tr>
-    </table>
+?>
+    </tbody>
+</table>
+
+<br>
+        <center>
+        <td><button type="submit" name="Imprimer" value="Imprimer" class="btn btn-danger">Imprimer</button></td>
+      </center>
+    </form>
     </fieldset>  
      <div class="small-box bg-green">
    

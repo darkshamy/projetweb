@@ -47,9 +47,21 @@
         i--;
         return false;
       }
+      if(f1.unite.value=="")
+      {
+        alert("saisir votre unite");
+        i--;
+        return false;
+      }
+      if(f1.description.value=="")
+      {
+        alert("saisir votre description");
+        i--;
+        return false;
+      }
       if(f1.codeprod.value=="")
       {
-        alert("saisir votre codeprod ");
+        alert("saisir votre code de produit");
         i--;
         return false;
       }
@@ -66,7 +78,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="back.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -359,7 +371,7 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Produit</span>
+            <i class="fa fa-edit"></i> <span>Produit</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -369,14 +381,15 @@
             <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier Produit</a></li>
             <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
-            <li><a href="chercherr.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
+            <li><a href="stat1.php"><i class="fa fa-circle-o"></i> Statistique Produit</a></li>
           </ul>
         </li>
        
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Stock</span>
+            <i class="fa fa-edit"></i> <span>Stock</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -386,6 +399,9 @@
             <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
+                        <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+                        <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
+
           </ul>
         </li>
     </section>
@@ -408,25 +424,33 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
   
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-xs-20">
  <fieldset >
       <p><img src="" width=""></p>
       <form name="f1"  method="POST" action="mstock.php" onSubmit="return verif()">
-        <legend><h2>Modifier Stock</h2></legend>
-        <table>
+        <center><legend><h2>Modifier Stock</h2></legend></center>
+          <table id="example1" class="table table-striped">
           <tr>
-            <td> Quantite </td>
-            <td><input type="number" name="quantite" value=""/></td>
+            <th> Quantite </th>
+            <th><input type="number" name="quantite" value=""/></th>
           </tr>
           <tr>
-          <td> Code prod </td>
-          <td><input type="number" name="codeprod" value=""/></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><input type="submit" name="Modifier" value="Modifier"/></td>
+            <th> Unite </th>
+            <th><input type="number" name="unite" value=""/></th>
+          </tr>
+          <tr>
+            <th> Description </th>
+            <th><input type="text" name="description" value=""/></th>
+          </tr>
+          <tr>
+          <th> Code Produit </th>
+          <th><input type="number" name="codeprod" value=""/></th>
         </tr>
         </table>
+        <br>
+        <center>
+        <td><button type="submit" name="Modifier" value="Modifier" class="btn btn-danger">Modifier</button></td>
+      </center>
       </form>
     </fieldset>
      <div class="small-box bg-green">
