@@ -89,7 +89,7 @@
                   $_POST['Role'] == 'admin')
               {
 
-                  header('LOCATION:back.html');
+                  header('LOCATION:back.php');
                }
                elseif ($_POST['ID'] == '2' && 
                   $_POST['Role'] == 'client') 

@@ -8,5 +8,5 @@ if (isset($_POST["Supprimer"]))
 	supprimer($id);
 }
 
-header('LOCATION:sstock.html');
+header('LOCATION:sstock1.php');
 ?>

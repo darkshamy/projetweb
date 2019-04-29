@@ -11,5 +11,5 @@ $myDate = date('Y-m-d H:i:s', $myDate);
  modifier($id);
 }
 
-header('LOCATION:mprod.html');
+header('LOCATION:mprod1.php');
 ?>

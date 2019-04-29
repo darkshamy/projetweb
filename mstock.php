@@ -8,5 +8,5 @@ if(isset($_POST['Modifier']))
  modifier($id);
 }
 
-header('LOCATION:mstock.html');
+header('LOCATION:mstock1.php');
 ?>

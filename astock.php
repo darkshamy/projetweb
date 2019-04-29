@@ -7,7 +7,7 @@ if(isset($_SESSION["pseudo"]))
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>tri Stock</title>
+  <title>Ajouter Stock</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -41,6 +41,41 @@ if(isset($_SESSION["pseudo"]))
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <script type="text/javascript">
+    function verif()
+    {
+      var i=0;
+      if(f1.quantite.value=="")
+      {
+        alert("saisir votre quantite");
+        i--;
+        return false;
+      }
+      if(f1.unite.value=="")
+      {
+        alert("saisir votre unite");
+        i--;
+        return false;
+      }
+      if(f1.description.value=="")
+      {
+        alert("saisir votre description");
+        i--;
+        return false;
+      }
+      if(f1.codeprod.value=="")
+      {
+        alert("saisir votre code de produit");
+        i--;
+        return false;
+      }
+      if(i==4)
+      {
+        return true;
+      }
+    }
+
+    </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -337,7 +372,8 @@ if(isset($_SESSION["pseudo"]))
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-      <li class="treeview">
+        
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Produit</span>
             <span class="pull-right-container">
@@ -346,7 +382,7 @@ if(isset($_SESSION["pseudo"]))
           </a>
           <ul class="treeview-menu">
             <li><a href="aprod.php"><i class="fa fa-circle-o"></i> Ajout Produit</a></li>
-            <li><a href="mprod.php"><i class="fa fa-circle-o"></i> Modifier produit</a></li>
+            <li><a href="mprod.php"><i class="fa fa-circle-o"></i> Modifier Produit</a></li>
             <li><a href="sprod.php"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
             <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
@@ -367,8 +403,8 @@ if(isset($_SESSION["pseudo"]))
             <li><a href="mstock.php"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
             <li><a href="sstock.php"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
-            <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
-            <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
+                        <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
+                                   <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
 
           </ul>
         </li>
@@ -384,7 +420,7 @@ if(isset($_SESSION["pseudo"]))
         
         <small> </small>
       </h1>
-      
+     
     </section>
 
     <!-- Main content -->
@@ -393,98 +429,33 @@ if(isset($_SESSION["pseudo"]))
       <div class="row">
   
         <div class="col-xs-20">
-           <center><legend><h2>Tri Stock</h2></legend></center>
- <?PHP
-include_once "../core/stockC.php";
-include_once "../entites/stock.php";
-
-
- $listeclient1=afficherASC();
- $listeclient2=afficherDESC();
-
-?>
-
-<form method="POST" action="triio.php">
-    
-       
-       
-        
- 
-<center>
-    <button type="submit" name="asc" value="ascendant" class="btn btn-danger">Ascendant</button>
-    <button type="submit" name="desc" value="descendant" class="btn btn-danger">Descendant</button>
-</center>
-
-
-
-
-
-<?php
-
-if (isset($_POST['asc'])) {
-    ?>
-   <table   id="example1" class="table table-hover">
-  <thead>
-    <tr>
-      <th >Quantite</th>
-      <th >Unite</th>
-      <th >Description</th>
-      <th >Code Produit</th>
-    </tr>
-  </thead>
-<?php
-foreach($listeclient1 as $row)
-{
-    ?>
-    <tr>
-    <td><?php echo $row['quantite']; ?></td>
-    <td><?php echo $row['unite']; ?></td>
-    <td><?php echo $row['description']; ?></td>
-    <td><?php echo $row['codeprod']; ?></td>
-    </tr>
-    <?php
-}
-?>
-    </table>
-    
-    <?PHP
-}
- 
-
-
-if (isset($_POST['desc'])) {
-    ?>
-   <table   id="example1" class="table table-striped">
-  <thead>
-    <tr>
-      <th >Quantite</th>
-      <th >Unite</th>
-      <th >Description</th>
-      <th >Code Produit</th>
-    </tr>
-  </thead>
-
-<?php
-foreach($listeclient2 as $row){
-    ?>
-       <tr>
-    <td><?php echo $row['quantite']; ?></td>
-    <td><?php echo $row['unite']; ?></td>
-    <td><?php echo $row['description']; ?></td>
-    <td><?php echo $row['codeprod']; ?></td>
-    </tr>
-    <?php
-}
-?>
-</thead>
-    </table>
-    </form>
-    
-    <?PHP
-}
- 
-
-?>
+ <fieldset >
+      <form name="f1"  method="POST" action="ajoutstock.php" onSubmit="return verif()">
+        <center><legend><h2>Ajouter Stock</h2></legend></center>
+        <table id="example1" class="table table-striped">
+          <tr>
+            <th> Quantite </th>
+            <th><input type="number" name="quantite" value=""/></th>
+          </tr>
+          <tr>
+            <th> Unite </th>
+            <th><input type="number" name="unite" value=""/></th>
+          </tr>
+          <tr>
+            <th> Description </th>
+            <th><input type="text" name="description" value=""/></th>
+          </tr>
+          <tr>
+          <th> Code Produit </th>
+          <th><input type="number" name="codeprod" value=""/></th>
+        </tr>
+        </table>
+        <br>
+        <center>
+        <td><button type="submit" name="Ajouter" value="Ajouter" class="btn btn-danger">Ajouter</button></td>
+      </center>
+      </form>
+    </fieldset>         
      <div class="small-box bg-green">
    
     

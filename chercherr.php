@@ -1,3 +1,7 @@
+<?php session_start ();
+if(isset($_SESSION["pseudo"]))
+{
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +49,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="back.html" class="logo">
+    <a href="back.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -295,7 +299,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="connexion.html" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="deco.php" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -344,9 +348,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="aprod.html"><i class="fa fa-circle-o"></i> Ajout Produit</a></li>
-            <li><a href="mprod.html"><i class="fa fa-circle-o"></i> Modifier produit</a></li>
-            <li><a href="sprod.html"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
+            <li><a href="aprod.php"><i class="fa fa-circle-o"></i> Ajout Produit</a></li>
+            <li><a href="mprod.php"><i class="fa fa-circle-o"></i> Modifier produit</a></li>
+            <li><a href="sprod.php"><i class="fa fa-circle-o"></i> Supprimer Produit</a></li>
             <li><a href="afffprod.php"><i class="fa fa-circle-o"></i> Affiche Produit</a></li>
             <li><a href="ververp.php"><i class="fa fa-circle-o"></i> Chercher Produit</a></li>
             <li><a href="stat1.php"><i class="fa fa-circle-o"></i> Statistique Produit</a></li>
@@ -362,9 +366,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="astock.html"><i class="fa fa-circle-o"></i> Ajout Stock</a></li>
-            <li><a href="mstock.html"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
-            <li><a href="sstock.html"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
+            <li><a href="astock.php"><i class="fa fa-circle-o"></i> Ajout Stock</a></li>
+            <li><a href="mstock.php"><i class="fa fa-circle-o"></i> Modifier Stock</a></li>
+            <li><a href="sstock.php"><i class="fa fa-circle-o"></i> Supprimer Stock</a></li>
             <li><a href="afffstock.php"><i class="fa fa-circle-o"></i> Affiche Stock</a></li>
                          <li><a href="triio.php"><i class="fa fa-circle-o"></i> tri Stock</a></li>
                          <li><a href="verver1.php"><i class="fa fa-circle-o"></i> Chercher Stock</a></li>
@@ -756,3 +760,15 @@ if((!isset($_POST['chercher'])) || ((isset($_POST['chercher']) && (!isset($_POST
 <script src="dist/js/demo.js"></script>
 </body>
 </html>
+ <?php
+}
+
+else
+{
+    echo "you need to connect";
+
+}
+
+?> 
+
+<a href="connex.php">connect here</a>
